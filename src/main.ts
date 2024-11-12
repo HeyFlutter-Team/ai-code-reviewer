@@ -15,6 +15,8 @@ const openai = new OpenAI({
   apiKey: OPENAI_API_KEY,
 });
 
+const bestPracticesContent = readFileSync("../best_practices.md", "utf8");
+
 interface PRDetails {
   owner: string;
   repo: string;
@@ -107,6 +109,19 @@ ${chunk.changes
   .map((c) => `${c.ln ? c.ln : c.ln2} ${c.content}`)
   .join("\n")}
 \`\`\`
+
+Also follow this code review checklist during the code review process:
+## 1. Code Review Checklist for Quality
+- [ ] Is the code free of unnecessary comments, debugging statements (e.g., \`print\`, \`console.log\`), and unused code?
+- [ ] Have hardcoded credentials, API keys, or secrets been removed from the code?
+- [ ] Is error handling in place with clear error messages, especially for edge cases?
+- [ ] Does the code follow our project coding standards and best practices? (See Best Practices)
+- [ ] Is the code readable, well-structured in functions and classes, and free of redundant code?
+- [ ] Are functions and classes kept small and focused on a single responsibility?
+- [ ] Are names for variables, functions, and classes clear and self-explanatory?
+
+Also follow the best practices during the code review process:
+${bestPracticesContent}
 `;
 }
 
